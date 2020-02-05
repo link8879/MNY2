@@ -127,6 +127,8 @@ namespace MNY2
 
         private void radButton1_Click(object sender, EventArgs e)
         {
+            if (miscInfo == null || _infos.Count == 0) return;
+
             radListControl2.Items.Clear();
             var locker = new object();
             var locker2 = new object();

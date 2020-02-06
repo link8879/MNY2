@@ -18,15 +18,15 @@ namespace MNY2
 {
     class MiscInfo
     {
-        public List<string> Sounds { get; set; } = new List<string>();
-        public List<string> Tiles { get; set; }
-        public List<string> Objects { get; set; }
-        public List<string> Backgrounds { get; set; }
-        public List<string> Reactors { get; set; } = new List<string>();
+        public Dictionary<string, int> Sounds { get; set; } = new Dictionary<string, int>();
+        public Dictionary<string, int> Tiles { get; set; }
+        public Dictionary<string, int> Objects { get; set; }
+        public Dictionary<string, int> Backgrounds { get; set; }
+        public Dictionary<string, int> Reactors { get; set; } = new Dictionary<string, int>();
         public Dictionary<int, string> MapNames { get; set; } = new Dictionary<int, string>();
         public Dictionary<int, string> MobNames { get; set; } = new Dictionary<int, string>();
         public Dictionary<int, string> NpcNames { get; set; } = new Dictionary<int, string>();
-        public List<int> Monsters { get; set; } = new List<int>();
-        public List<int> Npcs { get; set; } = new List<int>();
+        public Dictionary<int, int> Monsters { get; set; } = new Dictionary<int, int>();
+        public Dictionary<int, int> Npcs { get; set; } = new Dictionary<int, int>();
     }
 }

@@ -61,6 +61,15 @@ namespace MNY2 {
         }
         
         /// <summary>
+        ///   32비트 운영체제에선 실행할 수 없습니다과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string _32Bit {
+            get {
+                return ResourceManager.GetString("32Bit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   맵 파일 분석중..과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string Analyzing {
@@ -75,6 +84,15 @@ namespace MNY2 {
         public static string Analyzing2 {
             get {
                 return ResourceManager.GetString("Analyzing2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   바이트과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Bytes {
+            get {
+                return ResourceManager.GetString("Bytes", resourceCulture);
             }
         }
         
@@ -142,7 +160,7 @@ namespace MNY2 {
         }
         
         /// <summary>
-        ///   알림과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   MNY2과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string Inform {
             get {
@@ -156,6 +174,15 @@ namespace MNY2 {
         public static string LoadMapinfo {
             get {
                 return ResourceManager.GetString("LoadMapinfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   메모리 부족으로 인해 프로그램이 종료될 수도 있습니다과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LowMemory {
+            get {
+                return ResourceManager.GetString("LowMemory", resourceCulture);
             }
         }
         
@@ -232,7 +259,25 @@ namespace MNY2 {
         }
         
         /// <summary>
-        ///   버전:과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   이름과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string OrderName {
+            get {
+                return ResourceManager.GetString("OrderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   크기과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string OrderSize {
+            get {
+                return ResourceManager.GetString("OrderSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   타입:과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string Ver {
             get {

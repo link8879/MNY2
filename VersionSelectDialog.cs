@@ -31,7 +31,7 @@ namespace MNY2
 
         private void radDropDownList1_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
         {
-            Program.WzVariant = (WZVariant) this.radDropDownList1.SelectedIndex;
+            Program.WzVariant = (WZVariant)this.radDropDownList1.SelectedIndex;
         }
 
         private void radCheckBox1_CheckStateChanged(object sender, EventArgs e)
@@ -58,6 +58,15 @@ namespace MNY2
             {
                 this.radTextBox1.Text = fd.SelectedPath;
                 Program.ClientPath = fd.SelectedPath;
+            }
+        }
+
+        private void VersionSelectDialog_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+                Close();
             }
         }
     }

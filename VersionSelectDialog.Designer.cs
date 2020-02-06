@@ -62,6 +62,7 @@
             this.radDropDownList1.Size = new System.Drawing.Size(266, 24);
             this.radDropDownList1.TabIndex = 0;
             this.radDropDownList1.ThemeName = "VisualStudio2012Light";
+            this.radDropDownList1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VersionSelectDialog_KeyDown);
             this.radDropDownList1.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.radDropDownList1_SelectedIndexChanged);
             // 
             // radLabel1
@@ -85,6 +86,7 @@
             this.radCheckBox1.ThemeName = "VisualStudio2012Light";
             this.radCheckBox1.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             this.radCheckBox1.CheckStateChanged += new System.EventHandler(this.radCheckBox1_CheckStateChanged);
+            this.radCheckBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VersionSelectDialog_KeyDown);
             // 
             // radLabel2
             // 
@@ -97,10 +99,12 @@
             // 
             // radTextBox1
             // 
+            this.radTextBox1.Enabled = false;
             this.radTextBox1.Location = new System.Drawing.Point(102, 51);
             this.radTextBox1.Name = "radTextBox1";
             this.radTextBox1.Size = new System.Drawing.Size(193, 20);
             this.radTextBox1.TabIndex = 4;
+            this.radTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VersionSelectDialog_KeyDown);
             // 
             // radButton1
             // 
@@ -112,6 +116,7 @@
             this.radButton1.Text = global::MNY2.Strings.Ok;
             this.radButton1.ThemeName = "VisualStudio2012Light";
             this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
+            this.radButton1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VersionSelectDialog_KeyDown);
             // 
             // radButton2
             // 
@@ -123,6 +128,7 @@
             this.radButton2.Text = "...";
             this.radButton2.ThemeName = "VisualStudio2012Light";
             this.radButton2.Click += new System.EventHandler(this.radButton2_Click);
+            this.radButton2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VersionSelectDialog_KeyDown);
             // 
             // VersionSelectDialog
             // 
@@ -150,6 +156,7 @@
             this.Text = "";
             this.ThemeName = "VisualStudio2012Light";
             this.TopMost = true;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VersionSelectDialog_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radCheckBox1)).EndInit();

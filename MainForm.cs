@@ -17,6 +17,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -27,9 +28,16 @@ namespace MNY2
 {
     public partial class MainForm : RadForm
     {
+        private readonly string[] Category = { "Obj", "Back", "Tile", "Mob", "Npc", "Reactor", "BGM" };
+        private readonly string[] OrderText = { Strings.OrderName, Strings.OrderSize };
         private Dictionary<string, MapInfo> _infos = new Dictionary<string, MapInfo>();
-        private List<string> mobBack = new List<string>();
-        private List<string> npcBack = new List<string>();
+        private Dictionary<string, int> objBack = new Dictionary<string, int>();
+        private Dictionary<string, int> backBack = new Dictionary<string, int>();
+        private Dictionary<string, int> tileBack = new Dictionary<string, int>();
+        private Dictionary<string, int> reactorBack = new Dictionary<string, int>();
+        private Dictionary<string, int> mobBack = new Dictionary<string, int>();
+        private Dictionary<string, int> npcBack = new Dictionary<string, int>();
+        private Dictionary<string, int> bgmBack = new Dictionary<string, int>();
         private MiscInfo miscInfo;
 
         public MainForm()
@@ -47,17 +55,31 @@ namespace MNY2
             foreach (var item in list) _infos.Add($"{item.Id:D9}", item);
             miscInfo = JsonConvert.DeserializeObject<MiscInfo>(File.ReadAllText("MiscInfo.dat"));
 
+            foreach (var a in miscInfo.Objects)
+                objBack.Add($"{a.Key} ({a.Value:n0} {Strings.Bytes})", a.Value);
+            foreach (var a in miscInfo.Backgrounds)
+                backBack.Add($"{a.Key} ({a.Value:n0} {Strings.Bytes})", a.Value);
+            foreach (var a in miscInfo.Tiles)
+                tileBack.Add($"{a.Key} ({a.Value:n0} {Strings.Bytes})", a.Value);
+            foreach (var a in miscInfo.Reactors)
+                reactorBack.Add($"{a.Key} ({a.Value:n0} {Strings.Bytes})", a.Value);
+            foreach (var a in miscInfo.Sounds)
+                bgmBack.Add($"{a.Key} ({a.Value:n0} {Strings.Bytes})", a.Value);
+
             foreach (var a in miscInfo.Monsters)
             {
-                var name = miscInfo.MobNames.ContainsKey(a) ? miscInfo.MobNames[a] : Strings.NoName;
-                mobBack.Add($"{a} - {name}");
+                var name = miscInfo.MobNames.ContainsKey(a.Key) ? miscInfo.MobNames[a.Key] : Strings.NoName;
+                mobBack.Add($"{a.Key} - {name} ({a.Value:n0} {Strings.Bytes})", a.Value);
             }
-
             foreach (var a in miscInfo.Npcs)
             {
-                var name = miscInfo.NpcNames.ContainsKey(a) ? miscInfo.NpcNames[a] : Strings.NoName;
-                npcBack.Add($"{a} - {name}");
+                var name = miscInfo.NpcNames.ContainsKey(a.Key) ? miscInfo.NpcNames[a.Key] : Strings.NoName;
+                npcBack.Add($"{a.Key} - {name} ({a.Value:n0} {Strings.Bytes})", a.Value);
             }
+
+            foreach (var a in this.Category) this.radDropDownList1.Items.Add(new RadListDataItem(a));
+            foreach (var a in this.OrderText) this.radDropDownList2.Items.Add(a);
+            this.radDropDownList2.SelectedIndex = 0;
         }
 
         private void analyzeMap_Click(object sender, EventArgs e)
@@ -75,7 +97,10 @@ namespace MNY2
 
             if (list.SelectedItem != null)
             {
-                Clipboard.SetText(list.SelectedItem.Text.Contains('-') ? list.SelectedItem.Text.Remove(list.SelectedItem.Text.IndexOf('-') - 1) : list.SelectedItem.Text);
+                var text = list.SelectedItem.Text.Contains('-')
+                    ? list.SelectedItem.Text.Remove(list.SelectedItem.Text.IndexOf('-') - 1)
+                    : list.SelectedItem.Text.Remove(list.SelectedItem.Text.IndexOf('(') - 1);
+                Clipboard.SetText(text);
                 MessageBox.Show(Strings.Copied, Strings.Inform);
             }
         }
@@ -84,12 +109,12 @@ namespace MNY2
         {
             if (e.Position < 0) return;
             var searchQuery = radListControl1.Items.ToArray()[e.Position].Text;
-            if (searchQuery.Contains('-')) searchQuery = searchQuery.Remove(searchQuery.IndexOf('-') - 1);
+            searchQuery = searchQuery.Contains('-') ? searchQuery.Remove(searchQuery.IndexOf('-') - 1) : searchQuery.Remove(searchQuery.IndexOf('(') - 1);
             radListControl2.Items.Clear();
             foreach (var item in _infos.Where(item => item.Value.ContainsItem(searchQuery)))
             {
                 var name = miscInfo.MapNames.ContainsKey(int.Parse(item.Key)) ? miscInfo.MapNames[int.Parse(item.Key)] : Strings.NoName;
-                radListControl2.Items.Add($"{item.Key} - {name}");
+                radListControl2.Items.Add($"{item.Key} - {name} ({item.Value.Size:n0} {Strings.Bytes})");
             }
         }
 
@@ -102,25 +127,25 @@ namespace MNY2
             switch (radDropDownList1.Text)
             {
                 case "Obj":
-                    radListControl1.Items.AddRange(miscInfo.Objects);
+                    radListControl1.Items.AddRange(objBack.Keys);
                     break;
                 case "Reactor":
-                    radListControl1.Items.AddRange(miscInfo.Reactors);
+                    radListControl1.Items.AddRange(reactorBack.Keys);
                     break;
                 case "Back":
-                    radListControl1.Items.AddRange(miscInfo.Backgrounds);
+                    radListControl1.Items.AddRange(backBack.Keys);
                     break;
                 case "Tile":
-                    radListControl1.Items.AddRange(miscInfo.Tiles);
+                    radListControl1.Items.AddRange(tileBack.Keys);
                     break;
                 case "Mob":
-                    radListControl1.Items.AddRange(mobBack);
+                    radListControl1.Items.AddRange(mobBack.Keys);
                     break;
                 case "Npc":
-                    radListControl1.Items.AddRange(npcBack);
+                    radListControl1.Items.AddRange(npcBack.Keys);
                     break;
                 case "BGM":
-                    radListControl1.Items.AddRange(miscInfo.Sounds);
+                    radListControl1.Items.AddRange(bgmBack.Keys);
                     break;
             }
         }
@@ -137,25 +162,25 @@ namespace MNY2
             switch (radDropDownList1.Text)
             {
                 case "Obj":
-                    items.AddRange(miscInfo.Objects);
+                    items.AddRange(objBack.Keys);
                     break;
                 case "Reactor":
-                    items.AddRange(miscInfo.Reactors);
+                    items.AddRange(reactorBack.Keys);
                     break;
                 case "Back":
-                    items.AddRange(miscInfo.Backgrounds);
+                    items.AddRange(backBack.Keys);
                     break;
                 case "Tile":
-                    items.AddRange(miscInfo.Tiles);
+                    items.AddRange(tileBack.Keys);
                     break;
                 case "Mob":
-                    items.AddRange(mobBack);
+                    items.AddRange(mobBack.Keys);
                     break;
                 case "Npc":
-                    items.AddRange(npcBack);
+                    items.AddRange(npcBack.Keys);
                     break;
                 case "BGM":
-                    items.AddRange(miscInfo.Sounds);
+                    items.AddRange(bgmBack.Keys);
                     break;
             }
 
@@ -163,12 +188,12 @@ namespace MNY2
             {
                 lock (locker)
                 {
-                    var searchQuery = item.Contains('-') ? item.Remove(item.IndexOf('-') - 1) : item;
+                    var searchQuery = item.Contains('-') ? item.Remove(item.IndexOf('-') - 1) : item.Remove(item.IndexOf('(') - 1);
                     Parallel.ForEach(_infos, map =>
                     {
                         lock (locker2)
                         {
-                            if(map.Value.ContainsItem(searchQuery)) removeList.Add(item);
+                            if (map.Value.ContainsItem(searchQuery)) removeList.Add(item);
                         }
                     });
                 }
@@ -176,6 +201,40 @@ namespace MNY2
 
             foreach (var a in removeList) items.Remove(a);
             radListControl2.Items.AddRange(items);
+
+        }
+
+        private void radDropDownList2_SelectedIndexChanged(object sender, PositionChangedEventArgs e)
+        {
+            var searchResults = radListControl2.Items.Select(item => item.Text)
+                .ToDictionary(d => d,
+                    d => int.Parse(Regex.Match(d.Substring(d.IndexOf('(')).Replace(",", ""), @"\d+").Value));
+
+            if (searchResults.Count != 0) radListControl2.Items.Clear();
+
+            if (this.radDropDownList2.Text == Strings.OrderSize)
+            {
+                objBack = objBack.OrderBy(o => o.Value).Reverse().ToDictionary(d => d.Key, d => d.Value);
+                backBack = backBack.OrderBy(o => o.Value).Reverse().ToDictionary(d => d.Key, d => d.Value);
+                tileBack = tileBack.OrderBy(o => o.Value).Reverse().ToDictionary(d => d.Key, d => d.Value);
+                reactorBack = reactorBack.OrderBy(o => o.Value).Reverse().ToDictionary(d => d.Key, d => d.Value);
+                mobBack = mobBack.OrderBy(o => o.Value).Reverse().ToDictionary(d => d.Key, d => d.Value);
+                npcBack = npcBack.OrderBy(o => o.Value).Reverse().ToDictionary(d => d.Key, d => d.Value);
+                bgmBack = bgmBack.OrderBy(o => o.Value).Reverse().ToDictionary(d => d.Key, d => d.Value);
+                if (searchResults.Count != 0) radListControl2.Items.AddRange(searchResults.OrderBy(d => d.Value).Reverse().Select(d => d.Key));
+            }
+            else
+            {
+                objBack = objBack.OrderBy(o => o.Key).ToDictionary(d => d.Key, d => d.Value);
+                backBack = backBack.OrderBy(o => o.Key).ToDictionary(d => d.Key, d => d.Value);
+                tileBack = tileBack.OrderBy(o => o.Key).ToDictionary(d => d.Key, d => d.Value);
+                reactorBack = reactorBack.OrderBy(o => o.Key).ToDictionary(d => d.Key, d => d.Value);
+                mobBack = mobBack.OrderBy(o => o.Key).ToDictionary(d => d.Key, d => d.Value);
+                npcBack = npcBack.OrderBy(o => o.Key).ToDictionary(d => d.Key, d => d.Value);
+                bgmBack = bgmBack.OrderBy(o => o.Key).ToDictionary(d => d.Key, d => d.Value);
+                if (searchResults.Count != 0) radListControl2.Items.AddRange(searchResults.OrderBy(d => d.Key).Select(d => d.Key));
+            }
+            radDropDownList1_SelectedIndexChanged(sender, e);
         }
     }
 }

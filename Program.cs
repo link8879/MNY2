@@ -12,10 +12,11 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+using reWZ;
 using System;
 using System.Globalization;
+using System.Threading;
 using System.Windows.Forms;
-using reWZ;
 
 namespace MNY2
 {
@@ -31,10 +32,42 @@ namespace MNY2
         [STAThread]
         static void Main()
         {
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("ja-JP");
+
+            switch (Thread.CurrentThread.CurrentUICulture.Name)
+            {
+                case "ko-KR":
+                case "ja-JP":
+                    break;
+                default:
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+                    break;
+            }
+            var one = new Mutex(true, "a", out var createdNew);
+            if (createdNew)
+            {
+                one.ReleaseMutex();
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
+                if (!Environment.Is64BitOperatingSystem)
+                {
+                    MessageBox.Show(Strings._32Bit, Strings.Inform);
+                    Environment.Exit(1);
+                }
+
+                if (new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory / (1024 * 1024) <= 6 * 1024)
+                {
+                    MessageBox.Show(Strings.LowMemory, Strings.Inform);
+                }
+
+                Application.Run(new MainForm());
+            }
+            else
+            {
+                Environment.Exit(1);
+            }
         }
     }
 }

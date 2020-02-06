@@ -118,78 +118,78 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="32Bit" xml:space="preserve">
-    <value>32비트 운영체제에선 실행할 수 없습니다</value>
+    <value>32ビットOSでは起動できません</value>
   </data>
   <data name="Analyzing" xml:space="preserve">
-    <value>맵 파일 분석중..</value>
+    <value>Map.wzをパーシング中..</value>
   </data>
   <data name="Analyzing2" xml:space="preserve">
-    <value>기타 정보 분석중..</value>
+    <value>その他の情報をパーシング中..</value>
   </data>
   <data name="Bytes" xml:space="preserve">
-    <value>바이트</value>
+    <value>バイト</value>
   </data>
   <data name="ClientPath" xml:space="preserve">
-    <value>클라이언트 경로</value>
+    <value>ゲームのパス</value>
   </data>
   <data name="Copied" xml:space="preserve">
-    <value>값 복사 완료</value>
+    <value>コピーしました</value>
   </data>
   <data name="Encrypted" xml:space="preserve">
-    <value>암호화됨 (모르면 체크하세요)</value>
+    <value>暗号化されました(分からなければチェックしてください)</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>오류</value>
+    <value>エラー</value>
   </data>
   <data name="ExtractMapinfo" xml:space="preserve">
-    <value>맵정보 나와라 얍얍!!</value>
+    <value>マップ情報出てこいホイホイ!!</value>
   </data>
   <data name="FileMenu" xml:space="preserve">
-    <value>파일</value>
+    <value>ファイル</value>
   </data>
   <data name="FindUnused" xml:space="preserve">
-    <value>안쓰는 리소스 찾기</value>
+    <value>使わないリソースを探す</value>
   </data>
   <data name="Inform" xml:space="preserve">
     <value>MNY2</value>
   </data>
   <data name="LoadMapinfo" xml:space="preserve">
-    <value>기존 맵 정보 불러오기</value>
+    <value>パーシングしたマップ情報を読み込む</value>
   </data>
   <data name="LowMemory" xml:space="preserve">
-    <value>메모리 부족으로 인해 프로그램이 종료될 수도 있습니다</value>
+    <value>メモリ不足によってMNY2がクラッシュする可能性があります</value>
   </data>
   <data name="NoMapInfo" xml:space="preserve">
-    <value>Map 정보 없음</value>
+    <value>Mapの情報がありません</value>
   </data>
   <data name="NoMobInfo" xml:space="preserve">
-    <value>Mob 정보 없음</value>
+    <value>Mobの情報がありません</value>
   </data>
   <data name="NoName" xml:space="preserve">
-    <value>이름 없음</value>
+    <value>名前なし</value>
   </data>
   <data name="NoNpcInfo" xml:space="preserve">
-    <value>Npc 정보 없음</value>
+    <value>Npcの情報がありません</value>
   </data>
   <data name="NoReactorInfo" xml:space="preserve">
-    <value>Reactor 정보 없음</value>
+    <value>Reactorの情報がありません</value>
   </data>
   <data name="NoSoundInfo" xml:space="preserve">
-    <value>Sound 정보 없음</value>
+    <value>Soundの情報がありません</value>
   </data>
   <data name="NoStringInfo" xml:space="preserve">
-    <value>String 정보 없음</value>
+    <value>Stringの情報がありません</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>확인</value>
+    <value>OK</value>
   </data>
   <data name="OrderName" xml:space="preserve">
-    <value>이름</value>
+    <value>名前</value>
   </data>
   <data name="OrderSize" xml:space="preserve">
-    <value>크기</value>
+    <value>サイズ</value>
   </data>
   <data name="Ver" xml:space="preserve">
-    <value>타입:</value>
+    <value>タイプ</value>
   </data>
 </root>

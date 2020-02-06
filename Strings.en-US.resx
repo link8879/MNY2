@@ -522,7 +522,7 @@
     <value>Error</value>
   </data>
   <data name="Inform" xml:space="preserve">
-    <value>Information</value>
+    <value>MNY2</value>
   </data>
   <data name="NoMapInfo" xml:space="preserve">
     <value>Can't Find Map Info</value>
@@ -558,9 +558,24 @@
     <value>OK</value>
   </data>
   <data name="Ver" xml:space="preserve">
-    <value>Version:</value>
+    <value>Type:</value>
   </data>
   <data name="FindUnused" xml:space="preserve">
     <value>Find Unused Resources</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>Bytes</value>
+  </data>
+  <data name="OrderName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="OrderSize" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="32Bit" xml:space="preserve">
+    <value>Sorry, MNY2 Does Not Support 32-bit OS</value>
+  </data>
+  <data name="LowMemory" xml:space="preserve">
+    <value>MNY2 Might Crash Due To Low Memory</value>
   </data>
 </root>

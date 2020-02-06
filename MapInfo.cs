@@ -20,6 +20,7 @@ namespace MNY2
     public class MapInfo
     {
         public int Id { get; set; }
+        public int Size { get; set; }
 #nullable enable
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public List<string>? Tiles { get; set; }
@@ -35,8 +36,9 @@ namespace MNY2
         public List<int>? Monsters { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public List<int>? NPCs { get; set; }
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string BGM { get; set; }
+        public string BGM { get; set; } = "";
 #nullable disable
 
         public bool ContainsItem(string item)

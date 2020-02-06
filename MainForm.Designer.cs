@@ -30,13 +30,6 @@ namespace MNY2
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.RadListDataItem radListDataItem1 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem2 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem3 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem4 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem5 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem6 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem7 = new Telerik.WinControls.UI.RadListDataItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.visualStudio2012DarkTheme1 = new Telerik.WinControls.Themes.VisualStudio2012DarkTheme();
             this.radMenuItem1 = new Telerik.WinControls.UI.RadMenuItem();
@@ -47,11 +40,13 @@ namespace MNY2
             this.radListControl1 = new Telerik.WinControls.UI.RadListControl();
             this.radListControl2 = new Telerik.WinControls.UI.RadListControl();
             this.radButton1 = new Telerik.WinControls.UI.RadButton();
+            this.radDropDownList2 = new Telerik.WinControls.UI.RadDropDownList();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radListControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radListControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radDropDownList2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,26 +77,12 @@ namespace MNY2
             this.radMenuItem1});
             this.radMenu1.Location = new System.Drawing.Point(0, 0);
             this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(620, 20);
+            this.radMenu1.Size = new System.Drawing.Size(1018, 20);
             this.radMenu1.TabIndex = 5;
             this.radMenu1.ThemeName = "VisualStudio2012Dark";
             // 
             // radDropDownList1
             // 
-            radListDataItem1.Text = "Obj";
-            radListDataItem2.Text = "Reactor";
-            radListDataItem3.Text = "Back";
-            radListDataItem4.Text = "Tile";
-            radListDataItem5.Text = "Mob";
-            radListDataItem6.Text = "Npc";
-            radListDataItem7.Text = "BGM";
-            this.radDropDownList1.Items.Add(radListDataItem1);
-            this.radDropDownList1.Items.Add(radListDataItem2);
-            this.radDropDownList1.Items.Add(radListDataItem3);
-            this.radDropDownList1.Items.Add(radListDataItem4);
-            this.radDropDownList1.Items.Add(radListDataItem5);
-            this.radDropDownList1.Items.Add(radListDataItem6);
-            this.radDropDownList1.Items.Add(radListDataItem7);
             this.radDropDownList1.Location = new System.Drawing.Point(6, 30);
             this.radDropDownList1.Name = "radDropDownList1";
             this.radDropDownList1.Size = new System.Drawing.Size(130, 24);
@@ -113,7 +94,7 @@ namespace MNY2
             // 
             this.radListControl1.Location = new System.Drawing.Point(6, 60);
             this.radListControl1.Name = "radListControl1";
-            this.radListControl1.Size = new System.Drawing.Size(300, 536);
+            this.radListControl1.Size = new System.Drawing.Size(500, 600);
             this.radListControl1.TabIndex = 7;
             this.radListControl1.ThemeName = "VisualStudio2012Dark";
             this.radListControl1.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.mapList_SelectedIndexChanged);
@@ -121,28 +102,38 @@ namespace MNY2
             // 
             // radListControl2
             // 
-            this.radListControl2.Location = new System.Drawing.Point(312, 60);
+            this.radListControl2.Location = new System.Drawing.Point(512, 60);
             this.radListControl2.Name = "radListControl2";
-            this.radListControl2.Size = new System.Drawing.Size(300, 536);
+            this.radListControl2.Size = new System.Drawing.Size(500, 600);
             this.radListControl2.TabIndex = 8;
             this.radListControl2.ThemeName = "VisualStudio2012Dark";
             this.radListControl2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.List_MouseDoubleClick);
             // 
             // radButton1
             // 
-            this.radButton1.Location = new System.Drawing.Point(492, 26);
+            this.radButton1.Location = new System.Drawing.Point(878, 26);
             this.radButton1.Name = "radButton1";
-            this.radButton1.Size = new System.Drawing.Size(120, 24);
+            this.radButton1.Size = new System.Drawing.Size(134, 24);
             this.radButton1.TabIndex = 9;
             this.radButton1.Text = global::MNY2.Strings.FindUnused;
             this.radButton1.ThemeName = "VisualStudio2012Dark";
             this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
             // 
+            // radDropDownList2
+            // 
+            this.radDropDownList2.Location = new System.Drawing.Point(785, 26);
+            this.radDropDownList2.Name = "radDropDownList2";
+            this.radDropDownList2.Size = new System.Drawing.Size(87, 24);
+            this.radDropDownList2.TabIndex = 10;
+            this.radDropDownList2.ThemeName = "VisualStudio2012Dark";
+            this.radDropDownList2.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.radDropDownList2_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 608);
+            this.ClientSize = new System.Drawing.Size(1018, 672);
+            this.Controls.Add(this.radDropDownList2);
             this.Controls.Add(this.radButton1);
             this.Controls.Add(this.radListControl2);
             this.Controls.Add(this.radListControl1);
@@ -157,13 +148,14 @@ namespace MNY2
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MNY2";
+            this.Text = "MNY2 - SLFCG";
             this.ThemeName = "VisualStudio2012Dark";
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radListControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radListControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radDropDownList2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -181,5 +173,6 @@ namespace MNY2
         private Telerik.WinControls.UI.RadListControl radListControl1;
         private Telerik.WinControls.UI.RadListControl radListControl2;
         private Telerik.WinControls.UI.RadButton radButton1;
+        private Telerik.WinControls.UI.RadDropDownList radDropDownList2;
     }
 }

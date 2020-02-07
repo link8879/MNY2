@@ -30,11 +30,9 @@ namespace MNY2
         /// 해당 애플리케이션의 주 진입점입니다.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("ja-JP");
-
+            if(args.Length > 0) Thread.CurrentThread.CurrentUICulture = new CultureInfo(args[0]);
             switch (Thread.CurrentThread.CurrentUICulture.Name)
             {
                 case "ko-KR":

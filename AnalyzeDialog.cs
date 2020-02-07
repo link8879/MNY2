@@ -183,13 +183,13 @@ namespace MNY2
                       });
                 }
 
-                misc.Backgrounds = backDir.Cast<WZImage>().OrderBy(o => o.Name)
+                misc.Backgrounds = backDir.Where(o => o is WZImage).Cast<WZImage>().OrderBy(o => o.Name)
                       .ToDictionary(a => a.Name.Replace(".img", ""), a => a.DumpBytes().Length);
                 StepProgressBar();
-                misc.Objects = objDir.Cast<WZImage>().OrderBy(o => o.Name)
+                misc.Objects = objDir.Where(o => o is WZImage).Cast<WZImage>().OrderBy(o => o.Name)
                       .ToDictionary(a => a.Name.Replace(".img", ""), a => a.DumpBytes().Length);
                 StepProgressBar();
-                misc.Tiles = tileDir.Cast<WZImage>().OrderBy(o => o.Name)
+                misc.Tiles = tileDir.Where(o => o is WZImage).Cast<WZImage>().OrderBy(o => o.Name)
                       .ToDictionary(a => a.Name.Replace(".img", ""), a => a.DumpBytes().Length);
                 StepProgressBar();
 
@@ -225,6 +225,7 @@ namespace MNY2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), Strings.Error);
+                Environment.Exit(999);
             }
         }
 
@@ -243,8 +244,9 @@ namespace MNY2
 
             info.Sounds = sounds.Select(f => f.MainDirectory).SelectMany(a => a)
                 .SelectMany(a => a, (a, b) => new { a, b })
-                .Where(t => t.a.Path.ToLower().Contains("bgm") || t.a.Path.Contains("PL_")).Select(o => o.b)
-                .Cast<WZAudioProperty>().ToDictionary(a => a.Path.Remove(0, 1).Replace(".img", ""), a => a.Value.Length)
+                .Where(t => (t.a.Path.ToLower().Contains("bgm") || t.a.Path.Contains("PL_")) && !t.a.Path.Contains("UI") && !t.a.Path.Contains("PL_Sound")).Select(o => o.b)
+                .Where(o => o is WZAudioProperty)
+                .Cast<WZAudioProperty>().ToDictionary(a => a.Path.Remove(0, 1).Replace(".img", ""), a => a.Value.Length + (a.Header?.Length ?? 0))
                 .OrderBy(d => d.Key).ToDictionary(d => d.Key, d => d.Value);
 
             foreach (var f in sounds) f.Dispose();
@@ -271,6 +273,7 @@ namespace MNY2
             }
 
             info.Npcs = npc.Select(f => f.MainDirectory).SelectMany(o => o)
+                .Where(o => o is WZImage)
                 .Cast<WZImage>().ToDictionary(a => int.Parse(a.Name.Replace(".img", "")), a => a.DumpBytes().Length)
                 .OrderBy(o => o.Key).ToDictionary(d => d.Key, d => d.Value);
 
@@ -296,15 +299,16 @@ namespace MNY2
             }
 
             var questCountGroup = mob.Where(f => f.MainDirectory.HasChild("QuestCountGroup"))
-                .SelectMany(o => o.MainDirectory["QuestCountGroup"]).Cast<WZImage>()
+                .SelectMany(o => o.MainDirectory["QuestCountGroup"]).Where(o => o is WZImage).Cast<WZImage>()
                 .ToDictionary(a => int.Parse(a.Name.Replace(".img", "")), a => a.DumpBytes().Length);
             var mobs = mob.Select(f => f.MainDirectory).SelectMany(o => o)
-                .Where(o => !(o is WZDirectory)).Cast<WZImage>()
+                .Where(o => o is WZImage).Cast<WZImage>()
                 .ToDictionary(a => int.Parse(a.Name.Replace(".img", "")), a => a.DumpBytes().Length);
             info.Monsters = questCountGroup.Count == 0
                 ? mobs.OrderBy(o => o.Key).ToDictionary(o => o.Key, o => o.Value)
-                : mobs.Union(questCountGroup).OrderBy(o => o.Key).ToDictionary(o => o.Key, o => o.Value);
-
+                : mobs.Union(questCountGroup).OrderBy(o => o.Key)
+                    .GroupBy(g => g.Key)
+                    .ToDictionary(a => a.Key, a => a.First().Value);
             StepProgressBar();
             var loProcess = Process.GetCurrentProcess();
             loProcess.MaxWorkingSet = loProcess.MaxWorkingSet;
@@ -324,7 +328,7 @@ namespace MNY2
 
             using (var reactor = new WZFile($"{Program.ClientPath}\\Reactor.wz", Program.WzVariant, Program.IsEncrypted, WZReadSelection.EagerParseImage))
             {
-                info.Reactors = reactor.MainDirectory.Cast<WZImage>().OrderBy(o => o.Name)
+                info.Reactors = reactor.MainDirectory.Where(o => o is WZImage).Cast<WZImage>().OrderBy(o => o.Name)
                     .ToDictionary(a => a.Name.Replace(".img", ""), a => a.DumpBytes().Length);
             }
 

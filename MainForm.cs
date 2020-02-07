@@ -29,6 +29,7 @@ namespace MNY2
     public partial class MainForm : RadForm
     {
         private readonly string[] Category = { "Obj", "Back", "Tile", "Mob", "Npc", "Reactor", "BGM" };
+        private readonly string[] SizeSuffixes = { Strings.Bytes, "KB", "MB", "GB" };
         private readonly string[] OrderText = { Strings.OrderName, Strings.OrderSize };
         private Dictionary<string, MapInfo> _infos = new Dictionary<string, MapInfo>();
         private Dictionary<string, int> objBack = new Dictionary<string, int>();
@@ -43,6 +44,7 @@ namespace MNY2
         public MainForm()
         {
             InitializeComponent();
+            radLabel1.Text = Strings.OrderSize + ":";
         }
 
         private void openJson_Click(object sender, EventArgs e)
@@ -80,6 +82,8 @@ namespace MNY2
             foreach (var a in this.Category) this.radDropDownList1.Items.Add(new RadListDataItem(a));
             foreach (var a in this.OrderText) this.radDropDownList2.Items.Add(a);
             this.radDropDownList2.SelectedIndex = 0;
+
+            openJson.Enabled = false;
         }
 
         private void analyzeMap_Click(object sender, EventArgs e)
@@ -116,6 +120,12 @@ namespace MNY2
                 var name = miscInfo.MapNames.ContainsKey(int.Parse(item.Key)) ? miscInfo.MapNames[int.Parse(item.Key)] : Strings.NoName;
                 radListControl2.Items.Add($"{item.Key} - {name} ({item.Value.Size:n0} {Strings.Bytes})");
             }
+
+            var size = int.Parse(Regex
+                .Match(
+                    radListControl1.SelectedItem.Text.Substring(radListControl1.SelectedItem.Text.IndexOf('('))
+                        .Replace(",", ""), @"\d+").Value);
+            radLabel2.Text = SizeSuffix(size);
         }
 
         private void radDropDownList1_SelectedIndexChanged(object sender, PositionChangedEventArgs e)
@@ -235,6 +245,31 @@ namespace MNY2
                 if (searchResults.Count != 0) radListControl2.Items.AddRange(searchResults.OrderBy(d => d.Key).Select(d => d.Key));
             }
             radDropDownList1_SelectedIndexChanged(sender, e);
+        }
+        private string SizeSuffix(int value, int decimalPlaces = 0)
+        {
+            var mag = (int)Math.Log(value, 1024);
+            var adjustedSize = (decimal)value / (1L << (mag * 10));
+
+            if (Math.Round(adjustedSize, decimalPlaces) >= 1000)
+            {
+                mag += 1;
+                adjustedSize /= 1024;
+            }
+
+            return string.Format("{0:n" + decimalPlaces + "} {1}",
+                adjustedSize,
+                SizeSuffixes[mag]);
+        }
+
+        private void radListControl2_SelectedIndexChanged(object sender, PositionChangedEventArgs e)
+        {
+            if (radListControl2.SelectedItem == null) return;
+            var size = int.Parse(Regex
+                .Match(
+                    radListControl2.SelectedItem.Text.Substring(radListControl2.SelectedItem.Text.IndexOf('('))
+                        .Replace(",", ""), @"\d+").Value);
+            radLabel2.Text = SizeSuffix(size);
         }
     }
 }

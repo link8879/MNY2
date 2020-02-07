@@ -41,12 +41,16 @@ namespace MNY2
             this.radListControl2 = new Telerik.WinControls.UI.RadListControl();
             this.radButton1 = new Telerik.WinControls.UI.RadButton();
             this.radDropDownList2 = new Telerik.WinControls.UI.RadDropDownList();
+            this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radListControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radListControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,6 +111,7 @@ namespace MNY2
             this.radListControl2.Size = new System.Drawing.Size(500, 600);
             this.radListControl2.TabIndex = 8;
             this.radListControl2.ThemeName = "VisualStudio2012Dark";
+            this.radListControl2.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.radListControl2_SelectedIndexChanged);
             this.radListControl2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.List_MouseDoubleClick);
             // 
             // radButton1
@@ -128,11 +133,29 @@ namespace MNY2
             this.radDropDownList2.ThemeName = "VisualStudio2012Dark";
             this.radDropDownList2.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.radDropDownList2_SelectedIndexChanged);
             // 
+            // radLabel1
+            // 
+            this.radLabel1.Location = new System.Drawing.Point(143, 31);
+            this.radLabel1.Name = "radLabel1";
+            this.radLabel1.Size = new System.Drawing.Size(34, 18);
+            this.radLabel1.TabIndex = 11;
+            this.radLabel1.ThemeName = "VisualStudio2012Dark";
+            // 
+            // radLabel2
+            // 
+            this.radLabel2.Location = new System.Drawing.Point(184, 31);
+            this.radLabel2.Name = "radLabel2";
+            this.radLabel2.Size = new System.Drawing.Size(2, 2);
+            this.radLabel2.TabIndex = 12;
+            this.radLabel2.ThemeName = "VisualStudio2012Dark";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1018, 672);
+            this.Controls.Add(this.radLabel2);
+            this.Controls.Add(this.radLabel1);
             this.Controls.Add(this.radDropDownList2);
             this.Controls.Add(this.radButton1);
             this.Controls.Add(this.radListControl2);
@@ -156,6 +179,8 @@ namespace MNY2
             ((System.ComponentModel.ISupportInitialize)(this.radListControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -174,5 +199,7 @@ namespace MNY2
         private Telerik.WinControls.UI.RadListControl radListControl2;
         private Telerik.WinControls.UI.RadButton radButton1;
         private Telerik.WinControls.UI.RadDropDownList radDropDownList2;
+        private Telerik.WinControls.UI.RadLabel radLabel1;
+        private Telerik.WinControls.UI.RadLabel radLabel2;
     }
 }
